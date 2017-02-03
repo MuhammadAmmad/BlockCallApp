@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.phuong.blockcallapp.MainActivity">
+    tools:context="com.example.phuong.blockcallapp.activities.MainActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
@@ -14,7 +14,9 @@
         android:background="@color/tab_main_background"
         app:tabIndicatorColor="@android:color/white"
         app:tabIndicatorHeight="@dimen/tab_main_divide"
-        app:tabMode="fixed" />
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@android:color/white" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPagerTab"
