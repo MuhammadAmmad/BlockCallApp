@@ -27,9 +27,10 @@ public class MainActivity extends BaseActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(ContactFragment_.builder().build(), "Contact");
-        adapter.addFragment(ContactBlockFragment_.builder().build(), "Block");
-        adapter.addFragment(SettingsFragment_.builder().build(), "Settings");
+        String[] title = getResources().getStringArray(R.array.title_tab_layout);
+        adapter.addFragment(ContactFragment_.builder().build(), title[0]);
+        adapter.addFragment(ContactBlockFragment_.builder().build(), title[1]);
+        adapter.addFragment(SettingsFragment_.builder().build(), title[2]);
         viewPager.setAdapter(adapter);
     }
 }
