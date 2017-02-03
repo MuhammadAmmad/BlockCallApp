@@ -4,4 +4,18 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tab_main_height">60dp</dimen>
     <dimen name="tab_main_divide">5dp</dimen>
+    <dimen name="textview_name_contact_margin_top">10dp</dimen>
+    <dimen name="textview_name_contact_size_text">25sp</dimen>
+    <dimen name="textview_phone_contact_margin_top">10dp</dimen>
+    <dimen name="textview_phone_contact_size_text">20sp</dimen>
+    <dimen name="textview_phone_contact_margin_bottom">5dp</dimen>
+    <dimen name="View_height">1dp</dimen>
+    <dimen name="View_padding_left">10dp</dimen>
+    <dimen name="View_padding_right">10dp</dimen>
+    <dimen name="ll_margin_left">20dp</dimen>
+    <dimen name="ll_margin_right">20dp</dimen>
+    <dimen name="imageview_ll_width">0dp</dimen>
+    <dimen name="ll_margin_top">3dp</dimen>
+    <dimen name="border_radius">7dp</dimen>
+    <dimen name="ll_margin_bottom">3dp</dimen>
 </resources>
