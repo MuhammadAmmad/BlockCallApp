@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.models.Contact;
+import com.example.phuong.blockcallapp.models.ContactBlock;
 
 import java.util.List;
 
@@ -34,9 +35,17 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
 
     @Override
     public void onBindViewHolder(MyHolder holder, int position) {
-        Contact contact = mContacts.get(position);
+        final Contact contact = mContacts.get(position);
         holder.mTvNameContact.setText(contact.getName());
         holder.mTvPhoneContact.setText(contact.getPhoneNumber());
+
+        holder.mImgBlockCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ContactBlock contactBlock = new ContactBlock(contact.getName(), contact.getPhoneNumber(), false);
+                contactBlock.save();
+            }
+        });
     }
 
     @Override

@@ -43,34 +43,21 @@
         android:layout_marginTop="@dimen/ll_margin_top">
 
         <ImageView
-            android:id="@+id/imgBlockCall"
+            android:id="@+id/imgDelete"
             android:layout_width="@dimen/imageview_ll_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/item_selected"
             android:clickable="true"
-            android:src="@drawable/ic_block_call" />
+            android:src="@drawable/ic_delete" />
 
         <ImageView
-            android:id="@+id/imgCall"
+            android:id="@+id/imgVisible"
             android:layout_width="@dimen/imageview_ll_width"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_call" />
+            android:src="@drawable/ic_visibility" />
 
-        <ImageView
-            android:id="@+id/imgMessage"
-            android:layout_width="@dimen/imageview_ll_width"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_message" />
-
-        <ImageView
-            android:id="@+id/imgHidden"
-            android:layout_width="@dimen/imageview_ll_width"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_hidden" />
     </LinearLayout>
 
 </RelativeLayout>
