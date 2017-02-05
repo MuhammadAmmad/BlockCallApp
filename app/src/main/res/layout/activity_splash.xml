@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tab_main_background">
+
+    <ImageView
+        android:layout_width="@dimen/imageview_splash_width_height"
+        android:layout_height="@dimen/imageview_splash_width_height"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_splash" />
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/textview_loading_margin_bottom"
+        android:text="@string/textview_loading"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/textview_loading_size" />
+</RelativeLayout>

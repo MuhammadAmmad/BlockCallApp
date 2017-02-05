@@ -18,4 +18,11 @@
     <dimen name="ll_margin_top">3dp</dimen>
     <dimen name="border_radius">7dp</dimen>
     <dimen name="ll_margin_bottom">3dp</dimen>
+    <dimen name="textview_loading_size">20sp</dimen>
+    <dimen name="textview_loading_margin_bottom">40dp</dimen>
+    <dimen name="progress_margin_left">20dp</dimen>
+    <dimen name="progress_margin_right">20dp</dimen>
+    <dimen name="progress_margin_bottom">10dp</dimen>
+    <dimen name="imageview_splash_width_height">150dp</dimen>
+    <dimen name="rl_item_contact_margin">10dp</dimen>
 </resources>
