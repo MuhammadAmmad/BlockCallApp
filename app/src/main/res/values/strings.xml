@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BlockCallApp</string>
     <string name="permission_denied">Permission Denied</string>
+    <string name="textview_loading">Loading...</string>
     <array name="title_tab_layout">
         <item>Contact</item>
         <item>Block</item>

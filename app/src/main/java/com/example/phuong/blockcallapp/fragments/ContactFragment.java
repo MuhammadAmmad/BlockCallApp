@@ -5,9 +5,12 @@ import android.content.ContentResolver;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.phuong.blockcallapp.R;
@@ -18,6 +21,8 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,27 +30,23 @@ import java.util.List;
  */
 @EFragment(R.layout.fragment_contact)
 public class ContactFragment extends BaseFragment {
+
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @ViewById(R.id.recyclerViewContact)
     RecyclerView mRecyclerViewContact;
+    @ViewById(R.id.progressBar)
+    ProgressBar mProgressBar;
     private ListContactAdapter mAdapter;
     private List<Contact> mContacts;
 
     @Override
     void inits() {
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerViewContact.setLayoutManager(layoutManager);
-        getDataFromDevice();
-        getDataFromSimCard();
-        mAdapter = new ListContactAdapter(mContacts, getContext());
-        mRecyclerViewContact.setAdapter(mAdapter);
+        new getDataAction().execute();
     }
 
     public List<Contact> getDataFromDevice() {
         mContacts = new ArrayList<>();
         Contact contact;
-
-        //check permission
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             int check = getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS);
             if (check != PackageManager.PERMISSION_GRANTED) {
@@ -84,15 +85,15 @@ public class ContactFragment extends BaseFragment {
     public List<Contact> getDataFromSimCard() {
         if (mContacts != null) {
             Uri simUri = Uri.parse("content://icc/adn");
-            Cursor cursorSim = getContext().getContentResolver().query(simUri, null, null, null, null);
+            Cursor cursorSim = getActivity().getContentResolver().query(simUri, null, null, null, null);
             Contact contact;
             while (cursorSim.moveToNext()) {
                 contact = new Contact();
                 contact.setName(cursorSim.getString(cursorSim.getColumnIndex("name")));
                 contact.setPhoneNumber(cursorSim.getString(cursorSim.getColumnIndex("number")));
                 mContacts.add(contact);
-
             }
+            cursorSim.close();
         } else {
             mContacts = new ArrayList<>();
         }
@@ -107,7 +108,7 @@ public class ContactFragment extends BaseFragment {
                     getDataFromDevice();
                     mAdapter.notifyDataSetChanged();
                 } else {
-                    Toast.makeText(getContext(), getActivity().getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT)
+                    Toast.makeText(getContext(), getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT)
                             .show();
                 }
                 break;
@@ -115,4 +116,36 @@ public class ContactFragment extends BaseFragment {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+    private class getDataAction extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPostExecute(Void result) {
+            mProgressBar.setVisibility(View.GONE);
+            Collections.sort(mContacts, new Comparator<Contact>() {
+                public int compare(Contact v1, Contact v2) {
+                    return v1.getName().compareTo(v2.getName());
+                }
+            });
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+            mRecyclerViewContact.setLayoutManager(layoutManager);
+            mAdapter = new ListContactAdapter(mContacts, getContext());
+            mRecyclerViewContact.setAdapter(mAdapter);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            if (mContacts == null) {
+                getDataFromDevice();
+                getDataFromSimCard();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+    }
+
 }
