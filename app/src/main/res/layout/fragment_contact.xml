@@ -10,6 +10,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
+    <EditText
+        android:id="@+id/edtSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/edt_search_contact_padding"
+        android:paddingBottom="@dimen/edt_search_contact_padding"
+        android:paddingLeft="@dimen/edt_search_contact_padding"
+        android:layout_margin="@dimen/edt_search_contact_margin"
+        android:background="@drawable/border_item_contact"
+        android:drawableRight="@drawable/ic_search"
+        android:hint="@string/edt_search"
+        android:textSize="@dimen/edt_search_size" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewContact"

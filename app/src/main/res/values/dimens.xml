@@ -25,4 +25,8 @@
     <dimen name="progress_margin_bottom">10dp</dimen>
     <dimen name="imageview_splash_width_height">150dp</dimen>
     <dimen name="rl_item_contact_margin">10dp</dimen>
+    <dimen name="edt_search_contact_margin">10dp</dimen>
+    <dimen name="edt_search_size">20sp</dimen>
+    <dimen name="edt_search_contact_padding">5dp</dimen>
+    <dimen name="edt_search_contact_padding_left">15dp</dimen>
 </resources>
