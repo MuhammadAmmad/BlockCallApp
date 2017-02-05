@@ -10,14 +10,17 @@ import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.adapters.ListContactAdapter;
 import com.example.phuong.blockcallapp.models.Contact;
+import com.example.phuong.blockcallapp.utils.Constant;
 
 import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.TextChange;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -36,11 +39,14 @@ public class ContactFragment extends BaseFragment {
     RecyclerView mRecyclerViewContact;
     @ViewById(R.id.progressBar)
     ProgressBar mProgressBar;
+    @ViewById(R.id.edtSearch)
+    EditText mEdtSearch;
     private ListContactAdapter mAdapter;
     private List<Contact> mContacts;
 
     @Override
     void inits() {
+        mEdtSearch.setVisibility(View.GONE);
         new getDataAction().execute();
     }
 
@@ -117,6 +123,26 @@ public class ContactFragment extends BaseFragment {
         }
     }
 
+    @TextChange(R.id.edtSearch)
+    void onTextChangesSearch(CharSequence query) {
+        query = query.toString().toLowerCase();
+        final List<Contact> filteredList = new ArrayList<>();
+
+        for (int i = 0; i < mContacts.size(); i++) {
+
+            final String text = mContacts.get(i).getName().toLowerCase();
+
+            if (Constant.unAccent(text).contains(Constant.unAccent(query.toString()))) {
+                filteredList.add(mContacts.get(i));
+            }
+        }
+
+        mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new ListContactAdapter(filteredList, getActivity());
+        mRecyclerViewContact.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
+    }
+
     private class getDataAction extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPostExecute(Void result) {
@@ -126,6 +152,7 @@ public class ContactFragment extends BaseFragment {
                     return v1.getName().compareTo(v2.getName());
                 }
             });
+            mEdtSearch.setVisibility(View.VISIBLE);
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
             mRecyclerViewContact.setLayoutManager(layoutManager);
             mAdapter = new ListContactAdapter(mContacts, getContext());
