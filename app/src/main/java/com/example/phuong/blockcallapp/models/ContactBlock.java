@@ -21,6 +21,15 @@ public class ContactBlock extends SugarRecord {
         this.is_hidden = is_hidden;
     }
 
+    @Override
+    public String toString() {
+        return "ContactBlock{" +
+                "name='" + name + '\'' +
+                ", numberPhone='" + numberPhone + '\'' +
+                ", is_hidden=" + is_hidden +
+                '}';
+    }
+
     public String getName() {
         return name;
     }
