@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +33,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.MainActivity_" />
+
+        <receiver android:name=".receiver.RejectCallReceiver" >
+            <action android:name="android.intent.act" />
+        </receiver>
     </application>
 
 </manifest>
