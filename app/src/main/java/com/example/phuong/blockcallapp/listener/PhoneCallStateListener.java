@@ -33,6 +33,7 @@ public class PhoneCallStateListener extends PhoneStateListener {
             Intent showCallLog = new Intent();
             showCallLog.setAction(Intent.ACTION_VIEW);
             showCallLog.setType(android.provider.CallLog.Calls.CONTENT_TYPE);
+            Log.d("tag114", "114");
             context.startActivity(showCallLog);
             return true;
         } catch (Exception e) {

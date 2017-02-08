@@ -2,6 +2,7 @@ package com.example.phuong.blockcallapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,16 @@ public class ListContactBlockAdapter extends RecyclerView.Adapter<ListContactBlo
         final ContactBlock contactBlock = mContactBlocks.get(position);
         holder.mTvNameContact.setText(contactBlock.getName());
         holder.mTvPhoneContact.setText(contactBlock.getNumberPhone());
+
+        holder.mImgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                contactBlock.delete();
+                mContactBlocks.remove(contactBlock);
+                notifyDataSetChanged();
+
+            }
+        });
     }
 
     @Override
