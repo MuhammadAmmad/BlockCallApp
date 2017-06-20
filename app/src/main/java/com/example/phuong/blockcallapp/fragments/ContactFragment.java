@@ -1,14 +1,21 @@
 package com.example.phuong.blockcallapp.fragments;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -33,7 +40,7 @@ import java.util.List;
  */
 @EFragment(R.layout.fragment_contact)
 public class ContactFragment extends BaseFragment {
-
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 100;
     final private int REQUEST_CODE_ASK_PERMISSIONS = 123;
     @ViewById(R.id.recyclerViewContact)
     RecyclerView mRecyclerViewContact;
@@ -41,11 +48,23 @@ public class ContactFragment extends BaseFragment {
     ProgressBar mProgressBar;
     @ViewById(R.id.edtSearch)
     EditText mEdtSearch;
+    private Contact mContact;
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("tag11", "1234");
+            mContact = intent.getExtras().getParcelable(ListContactAdapter.REQUEST_CALL_PHONE);
+            ActivityCompat.requestPermissions((Activity) context,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
+        }
+    };
     private ListContactAdapter mAdapter;
     private List<Contact> mContacts;
 
     @Override
     void inits() {
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(ListContactAdapter.REQUEST_CALL_PHONE));
         mEdtSearch.setVisibility(View.GONE);
         new getDataAction().execute();
     }
@@ -118,6 +137,16 @@ public class ContactFragment extends BaseFragment {
                             .show();
                 }
                 break;
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + mContact.getPhoneNumber()));
+                    startActivity(callIntent);
+                }
+                else{
+                    Toast.makeText(getContext(), getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT)
+                            .show();
+                }
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
