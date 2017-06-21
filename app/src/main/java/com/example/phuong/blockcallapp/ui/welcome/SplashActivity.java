@@ -1,8 +1,10 @@
-package com.example.phuong.blockcallapp.activities;
+package com.example.phuong.blockcallapp.ui.welcome;
 
 import android.os.Handler;
 
 import com.example.phuong.blockcallapp.R;
+import com.example.phuong.blockcallapp.activities.MainActivity_;
+import com.example.phuong.blockcallapp.ui.BaseActivity;
 
 import org.androidannotations.annotations.EActivity;
 

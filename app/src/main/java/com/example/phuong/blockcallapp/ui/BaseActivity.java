@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.activities;
+package com.example.phuong.blockcallapp.ui;
 
 import android.support.v7.app.AppCompatActivity;
 

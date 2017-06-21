@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.fragments;
+package com.example.phuong.blockcallapp.ui.contact;
 
 import android.Manifest;
 import android.app.Activity;
@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.adapters.ListContactAdapter;
 import com.example.phuong.blockcallapp.models.Contact;
+import com.example.phuong.blockcallapp.ui.BaseFragment;
 import com.example.phuong.blockcallapp.utils.Constant;
 
 import org.androidannotations.annotations.EFragment;
@@ -63,7 +64,7 @@ public class ContactFragment extends BaseFragment {
     private List<Contact> mContacts;
 
     @Override
-    void inits() {
+    public void inits() {
         getActivity().registerReceiver(broadcastReceiver, new IntentFilter(ListContactAdapter.REQUEST_CALL_PHONE));
         mEdtSearch.setVisibility(View.GONE);
         new getDataAction().execute();

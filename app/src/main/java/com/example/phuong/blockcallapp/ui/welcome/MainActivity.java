@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.activities;
+package com.example.phuong.blockcallapp.ui.welcome;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -8,6 +8,7 @@ import com.example.phuong.blockcallapp.adapters.TabAdapter;
 import com.example.phuong.blockcallapp.fragments.ContactBlockFragment_;
 import com.example.phuong.blockcallapp.fragments.ContactFragment_;
 import com.example.phuong.blockcallapp.fragments.SettingsFragment_;
+import com.example.phuong.blockcallapp.ui.BaseActivity;
 import com.orm.SugarContext;
 
 import org.androidannotations.annotations.EActivity;

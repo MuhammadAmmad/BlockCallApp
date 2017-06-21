@@ -1,6 +1,7 @@
-package com.example.phuong.blockcallapp.fragments;
+package com.example.phuong.blockcallapp.ui.setting;
 
 import com.example.phuong.blockcallapp.R;
+import com.example.phuong.blockcallapp.ui.BaseFragment;
 
 import org.androidannotations.annotations.EFragment;
 
