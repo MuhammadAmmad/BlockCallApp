@@ -1,6 +1,13 @@
 package com.example.phuong.blockcallapp.adapters;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +18,7 @@ import android.widget.TextView;
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.models.Contact;
 import com.example.phuong.blockcallapp.models.ContactBlock;
+import com.example.phuong.blockcallapp.utils.Permissions;
 
 import java.util.List;
 
@@ -19,6 +27,8 @@ import java.util.List;
  */
 
 public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.MyHolder> {
+
+    public static final String REQUEST_CALL_PHONE = "request_call_phone";
     private List<Contact> mContacts;
     private Context mContext;
 
@@ -46,6 +56,34 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
                 contactBlock.save();
             }
         });
+
+        holder.mImgCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:" + contact.getPhoneNumber()));
+                if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    /*
+                    * Send message to fragment to request permission
+                    * */
+                    broadcastIntent(contact);
+
+                   /* Permissions permissions = new Permissions(mContext);
+                    permissions.checkCallPhonePermission();*/
+                    return;
+                }
+                mContext.startActivity(callIntent);
+            }
+        });
+    }
+
+    public void broadcastIntent(Contact contact) {
+        Intent intent = new Intent();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(REQUEST_CALL_PHONE,contact);
+        intent.putExtras(bundle);
+        intent.setAction(REQUEST_CALL_PHONE);
+        mContext.sendBroadcast(intent);
     }
 
     @Override
