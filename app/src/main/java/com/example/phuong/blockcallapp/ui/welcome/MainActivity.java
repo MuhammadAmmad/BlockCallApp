@@ -5,10 +5,10 @@ import android.support.v4.view.ViewPager;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.adapters.TabAdapter;
-import com.example.phuong.blockcallapp.fragments.ContactBlockFragment_;
-import com.example.phuong.blockcallapp.fragments.ContactFragment_;
-import com.example.phuong.blockcallapp.fragments.SettingsFragment_;
 import com.example.phuong.blockcallapp.ui.BaseActivity;
+import com.example.phuong.blockcallapp.ui.block_call.ContactBlockFragment_;
+import com.example.phuong.blockcallapp.ui.contact.ContactFragment_;
+import com.example.phuong.blockcallapp.ui.setting.SettingsFragment_;
 import com.orm.SugarContext;
 
 import org.androidannotations.annotations.EActivity;
@@ -22,7 +22,7 @@ public class MainActivity extends BaseActivity {
     ViewPager mViewPagerTab;
 
     @Override
-    void inits() {
+    public void inits() {
         SugarContext.init(this);
         setupViewPager(mViewPagerTab);
         mTab.setupWithViewPager(mViewPagerTab);

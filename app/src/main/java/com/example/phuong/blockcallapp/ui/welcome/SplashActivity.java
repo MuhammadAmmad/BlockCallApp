@@ -3,7 +3,6 @@ package com.example.phuong.blockcallapp.ui.welcome;
 import android.os.Handler;
 
 import com.example.phuong.blockcallapp.R;
-import com.example.phuong.blockcallapp.activities.MainActivity_;
 import com.example.phuong.blockcallapp.ui.BaseActivity;
 
 import org.androidannotations.annotations.EActivity;
@@ -15,7 +14,7 @@ import org.androidannotations.annotations.EActivity;
 public class SplashActivity extends BaseActivity {
 
     @Override
-    void inits() {
+    public void inits() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -27,6 +26,7 @@ public class SplashActivity extends BaseActivity {
 
     public void intentMain() {
         MainActivity_.intent(this).start();
+        finish();
     }
 
 }
