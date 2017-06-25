@@ -1,9 +1,7 @@
 package com.example.phuong.blockcallapp.ui.welcome;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.adapters.TabAdapter;
@@ -37,18 +35,5 @@ public class MainActivity extends BaseActivity {
         adapter.addFragment(ContactBlockFragment_.builder().build(), title[1]);
         adapter.addFragment(SettingsFragment_.builder().build(), title[2]);
         viewPager.setAdapter(adapter);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Log.d(getClass().getSimpleName(),"==========");
-//        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-//        if (fragments != null) {
-//            for (Fragment fragment : fragments) {
-//                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//            }
-//        }
-
     }
 }
