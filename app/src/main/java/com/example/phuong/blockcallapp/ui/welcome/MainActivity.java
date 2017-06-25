@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.adapters.TabAdapter;
+import com.example.phuong.blockcallapp.models.Contact;
 import com.example.phuong.blockcallapp.ui.BaseActivity;
 import com.example.phuong.blockcallapp.ui.block_call.ContactBlockFragment_;
 import com.example.phuong.blockcallapp.ui.contact.ContactFragment_;
@@ -12,7 +13,10 @@ import com.example.phuong.blockcallapp.ui.setting.SettingsFragment_;
 import com.orm.SugarContext;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+
+import java.util.List;
 
 @EActivity(R.layout.activity_main)
 public class MainActivity extends BaseActivity {
@@ -20,6 +24,8 @@ public class MainActivity extends BaseActivity {
     TabLayout mTab;
     @ViewById(R.id.viewPagerTab)
     ViewPager mViewPagerTab;
+    @Extra
+    List<Contact> mContacts;
 
     @Override
     public void inits() {
@@ -35,5 +41,9 @@ public class MainActivity extends BaseActivity {
         adapter.addFragment(ContactBlockFragment_.builder().build(), title[1]);
         adapter.addFragment(SettingsFragment_.builder().build(), title[2]);
         viewPager.setAdapter(adapter);
+    }
+
+    public List<Contact> getListContact() {
+        return mContacts;
     }
 }
