@@ -47,7 +47,6 @@ import java.util.List;
 public class ContactFragment extends BaseFragment {
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 100;
     final private int REQUEST_CODE_READ_CONTACT_DEVICE = 101;
-    final private int REQUEST_CODE_READ_CONTACT_SIM = 102;
 
     @ViewById(R.id.recyclerViewContact)
     RecyclerView mRecyclerViewContact;
