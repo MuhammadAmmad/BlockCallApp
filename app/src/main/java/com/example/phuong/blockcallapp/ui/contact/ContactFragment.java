@@ -1,21 +1,25 @@
 package com.example.phuong.blockcallapp.ui.contact;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -53,6 +57,7 @@ public class ContactFragment extends BaseFragment {
     EditText mEdtSearch;
 
     private Contact mContact;
+    private boolean isFirst = true;
 
     BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -71,42 +76,60 @@ public class ContactFragment extends BaseFragment {
         mContacts = new ArrayList<>();
         getActivity().registerReceiver(broadcastReceiver, new IntentFilter(ListContactAdapter.REQUEST_CALL_PHONE));
         mEdtSearch.setVisibility(View.GONE);
+
+        mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new ListContactAdapter(mContacts, getActivity());
+        mRecyclerViewContact.setAdapter(mAdapter);
+
         new getDataAction().execute();
     }
 
-    public List<Contact> getDataFromDevice() {
+    public void getDataFromDevice() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            Log.d(getClass().getSimpleName(),"1111");
-            int check = getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS);
-            if (check != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                        REQUEST_CODE_READ_CONTACT_DEVICE);
-                return null;
-            }
+            request();
         } else {
-            Log.d(getClass().getSimpleName(),"2222");
-            mContacts = accessGetDataFromDevice();
+            accessGetDataFromDevice();
         }
-        return mContacts;
     }
 
-    public List<Contact> getDataFromSimCard() {
+    public void getDataFromSimCard() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            int check = getActivity().checkSelfPermission(Manifest.permission.READ_CONTACTS);
-            if (check != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
-                        REQUEST_CODE_READ_CONTACT_DEVICE);
-                return null;
-            }
+            request();
         } else {
-            Log.d(getClass().getSimpleName(),"3333");
-            mContacts = accessGetDataFromSim();
+            accessGetDataFromSim();
         }
-        return mContacts;
     }
 
-    public List<Contact> accessGetDataFromSim(){
-        Log.d(getClass().getSimpleName(),"data from sim");
+    public void request() {
+        if (isFirst) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.READ_CONTACTS)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Contacts access needed");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setMessage("please confirm Contacts access");
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @TargetApi(Build.VERSION_CODES.M)
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            requestPermissions(
+                                    new String[]
+                                            {Manifest.permission.READ_CONTACTS}
+                                    , REQUEST_CODE_READ_CONTACT_DEVICE);
+                        }
+                    });
+                    builder.show();
+                } else {
+                    requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                            REQUEST_CODE_READ_CONTACT_DEVICE);
+                }
+            }
+            isFirst = false;
+        }
+    }
+
+    public void accessGetDataFromSim() {
         Uri simUri = Uri.parse("content://icc/adn");
         List<Contact> contacts = new ArrayList<>();
         Cursor cursorSim = getActivity().getContentResolver().query(simUri, null, null, null, null);
@@ -120,10 +143,11 @@ public class ContactFragment extends BaseFragment {
             }
             cursorSim.close();
         }
-        return contacts;
+        mContacts.addAll(contacts);
+        mAdapter.notifyDataSetChanged();
     }
-    public List<Contact> accessGetDataFromDevice(){
-        Log.d(getClass().getSimpleName(),"data from device");
+
+    public void accessGetDataFromDevice() {
         Contact contact;
         List<Contact> contacts = new ArrayList<>();
         ContentResolver cr = getActivity().getContentResolver();
@@ -149,7 +173,9 @@ public class ContactFragment extends BaseFragment {
                 }
             }
         }
-        return contacts;
+        mContacts.addAll(contacts);
+        mAdapter.notifyDataSetChanged();
+
     }
 
 
@@ -157,14 +183,10 @@ public class ContactFragment extends BaseFragment {
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CODE_READ_CONTACT_DEVICE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d(getClass().getSimpleName(),"accept contact device");
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     accessGetDataFromDevice();
                     accessGetDataFromSim();
-                    mAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getContext(), getResources().getString(R.string.permission_denied), Toast.LENGTH_SHORT)
-                            .show();
+
                 }
                 break;
             case MY_PERMISSIONS_REQUEST_CALL_PHONE:
@@ -195,8 +217,6 @@ public class ContactFragment extends BaseFragment {
                 }
             }
         }
-
-        mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new ListContactAdapter(filteredList, getActivity());
         mRecyclerViewContact.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -220,7 +240,6 @@ public class ContactFragment extends BaseFragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            Log.d(getClass().getSimpleName(),"do in");
             getDataFromDevice();
             getDataFromSimCard();
             return null;

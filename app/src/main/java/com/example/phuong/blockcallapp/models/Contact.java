@@ -3,8 +3,6 @@ package com.example.phuong.blockcallapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by phuong on 03/02/2017.
  */
@@ -62,5 +60,13 @@ public class Contact implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
         parcel.writeString(phoneNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }
