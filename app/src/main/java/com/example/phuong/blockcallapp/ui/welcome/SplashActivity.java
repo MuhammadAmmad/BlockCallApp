@@ -13,10 +13,12 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.models.Contact;
 import com.example.phuong.blockcallapp.ui.BaseActivity;
+import com.example.phuong.blockcallapp.utils.Constant;
 
 import org.androidannotations.annotations.EActivity;
 
@@ -44,7 +46,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     public void intentMain() {
-        MainActivity_.intent(this).mContacts(mContacts).start();
+        MainActivity_.intent(this).mContacts(Constant.sortList(mContacts)).start();
         finish();
     }
 
@@ -63,6 +65,7 @@ public class SplashActivity extends BaseActivity {
             cursorSim.close();
         }
         mContacts.addAll(contacts);
+        intentMain();
     }
 
     public void accessGetDataFromDevice() {
@@ -92,7 +95,8 @@ public class SplashActivity extends BaseActivity {
             }
         }
         mContacts.addAll(contacts);
-        intentMain();
+        getDataFromSimCard();
+
     }
 
     public void getDataFromDevice() {
@@ -147,7 +151,7 @@ public class SplashActivity extends BaseActivity {
             case REQUEST_CODE_READ_CONTACT_DEVICE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     accessGetDataFromDevice();
-                    accessGetDataFromSim();
+
 
                 }
                 break;
@@ -158,7 +162,6 @@ public class SplashActivity extends BaseActivity {
 
     public void getData() {
         getDataFromDevice();
-        getDataFromSimCard();
     }
 
 }
