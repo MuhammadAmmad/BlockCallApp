@@ -1,76 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/rl_item_contact_margin"
-    android:background="@drawable/border_item_contact">
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvNameContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/textview_name_contact_margin_top"
-        android:textSize="@dimen/textview_name_contact_size_text"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvPhoneContact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvNameContact"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/textview_phone_contact_margin_bottom"
-        android:layout_marginTop="@dimen/textview_phone_contact_margin_top"
-        android:textSize="@dimen/textview_phone_contact_size_text" />
-
-    <View
-        android:id="@+id/View"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/View_height"
-        android:layout_below="@+id/tvPhoneContact"
-        android:layout_marginLeft="@dimen/View_padding_left"
-        android:layout_marginRight="@dimen/View_padding_right"
-        android:background="@color/View_background" />
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/View"
-        android:layout_marginBottom="@dimen/ll_margin_bottom"
-        android:layout_marginLeft="@dimen/ll_margin_left"
-        android:layout_marginRight="@dimen/ll_margin_right"
-        android:layout_marginTop="@dimen/ll_margin_top">
+        android:layout_margin="5dp"
+        android:background="@drawable/border_item_contact">
 
-        <ImageView
-            android:id="@+id/imgBlockCall"
-            android:layout_width="@dimen/imageview_ll_width"
+        <TextView
+            android:id="@+id/tvNameContact"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/item_selected"
-            android:clickable="true"
-            android:src="@drawable/ic_block_call" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="@dimen/textview_name_contact_margin_top"
+            android:text="Phuong"
+            android:textSize="@dimen/textview_name_contact_size_text"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imgCall"
-            android:layout_width="@dimen/imageview_ll_width"
+        <TextView
+            android:id="@+id/tvPhoneContact"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_call" />
+            android:layout_below="@+id/tvNameContact"
+            android:layout_marginBottom="@dimen/textview_phone_contact_margin_bottom"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="@dimen/textview_phone_contact_margin_top"
+            android:text="01668583242"
+            android:textSize="@dimen/textview_phone_contact_size_text" />
 
-        <ImageView
-            android:id="@+id/imgMessage"
-            android:layout_width="@dimen/imageview_ll_width"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_message" />
+            android:layout_alignParentRight="true"
+            android:layout_margin="20dp"
+            android:layout_marginTop="10dp"
+            >
 
-        <ImageView
-            android:id="@+id/imgHidden"
-            android:layout_width="@dimen/imageview_ll_width"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/ic_hidden" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imgBlockCall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_selected"
+                android:clickable="true"
+                android:src="@drawable/ic_block_call" />
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/imgBlockMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgBlockCall"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_message" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
