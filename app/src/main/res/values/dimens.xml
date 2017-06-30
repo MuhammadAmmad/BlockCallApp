@@ -29,4 +29,13 @@
     <dimen name="edt_search_size">20sp</dimen>
     <dimen name="edt_search_contact_padding">5dp</dimen>
     <dimen name="edt_search_contact_padding_left">15dp</dimen>
+    <dimen name="dialog_width">280dp</dimen>
+    <dimen name="dialog_standard_corner_radius">20dp</dimen>
+    <dimen name="dialog_standard_tv_message_margin">18dp</dimen>
+    <dimen name="dialog_standard_tv_message_spacing">4dp</dimen>
+    <dimen name="left_right_padding">12dp</dimen>
+    <dimen name="dialog_standard_tv_content_text_size">16sp</dimen>
+    <dimen name="line_height">1dp</dimen>
+    <dimen name="dialog_standard_tv_ok_margin">18dp</dimen>
+    <dimen name="dialog_saved_medicine_record_tv_ok_text_size">15dp</dimen>
 </resources>

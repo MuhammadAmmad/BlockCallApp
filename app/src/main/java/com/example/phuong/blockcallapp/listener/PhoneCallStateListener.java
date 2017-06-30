@@ -33,7 +33,6 @@ public class PhoneCallStateListener extends PhoneStateListener {
             Intent showCallLog = new Intent();
             showCallLog.setAction(Intent.ACTION_VIEW);
             showCallLog.setType(android.provider.CallLog.Calls.CONTENT_TYPE);
-            Log.d("tag114", "114");
             context.startActivity(showCallLog);
             return true;
         } catch (Exception e) {
@@ -59,14 +58,11 @@ public class PhoneCallStateListener extends PhoneStateListener {
                     Method method = clazz.getDeclaredMethod("getITelephony");
                     method.setAccessible(true);
                     ITelephony telephonyService = (ITelephony) method.invoke(telephonyManager);
-                    Log.d("tag115", incomingNumber + "   1bc");
-                    Log.d("tag116", mPhoneBlocks.toString());
                     for (ContactBlock phoneBlock : mPhoneBlocks) {
                         if (phoneBlock.getNumberPhone().contains("+84")) {
                             phoneBlock.setNumberPhone(phoneBlock.getNumberPhone().replace("+84", "0"));
                         }
                         if (incomingNumber.equalsIgnoreCase(phoneBlock.getNumberPhone())) {
-                            Log.d("tag114", "112");
                             telephonyService = (ITelephony) method.invoke(telephonyManager);
                             telephonyService.silenceRinger();
                             telephonyService.endCall();

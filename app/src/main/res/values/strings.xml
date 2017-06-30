@@ -3,6 +3,12 @@
     <string name="permission_denied">Permission Denied</string>
     <string name="textview_loading">Loading...</string>
     <string name="edt_search">Search</string>
+    <string name="dialog_confirm_tv_message_confirm_delete">Bạn có chắc chắn muốn thực hiện không ?</string>
+    <string name="dialog_confirm_tv_cancel">Hủy</string>
+    <string name="dialog_confirm_tv_ok">Thực hiện</string>
+    <string name="msg_success">Bạn đã chặn cuộc gọi thành công</string>
+    <string name="title_dialog_block_call">Xác thực chặn gọi</string>
+    <string name="msg_dialog_block_call">Bạn có chắc chắn muốn chặn số điện thoại này không ?</string>
     <array name="title_tab_layout">
         <item>Contact</item>
         <item>Block</item>

@@ -6,4 +6,7 @@
     <color name="tab_main_background">#009688</color>
     <color name="View_background">#BDBDBD</color>
     <color name="item_pressed">#DEDEDE</color>
+    <color name="colorLine">#cccccc</color>
+    <color name="white">#ffffff</color>
+    <color name="colorTextViewOkStandardDialog">#00796B</color>
 </resources>
