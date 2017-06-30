@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -113,16 +112,17 @@ public class ContactFragment extends BaseFragment implements ListContactAdapter.
 
 
     @Override
-    public void clickBlockCall(Contact contact) {
-        DialogComfirm dialogComfirm = DialogComfirm_.builder().mTitle("Xác thực chặn gọi").mMessage("Bạn có chắc chắn muốn chặn số điện thoại này không ?").build();
+    public void clickBlockCall(final Contact contact) {
+        DialogComfirm dialogComfirm = DialogComfirm_.builder().mTitle(getString(R.string.title_dialog_block_call)).mMessage(getString(R.string.msg_dialog_block_call)).build();
         dialogComfirm.show(getFragmentManager(), new DialogComfirm.OnItemClickListener() {
             @Override
             public void onConfirmClick() {
-                Log.d(getClass().getSimpleName(), "=======1");
+                ContactBlock contactBlock = new ContactBlock(contact.getName(), contact.getPhoneNumber(), false);
+                contactBlock.save();
+                Toast.makeText(getContext(), getString(R.string.msg_success), Toast.LENGTH_SHORT).show();
             }
         });
-        ContactBlock contactBlock = new ContactBlock(contact.getName(), contact.getPhoneNumber(), false);
-        contactBlock.save();
+
     }
 
     @Override

@@ -44,7 +44,6 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
         holder.mImgBlockCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //show dialog
                 mListener.clickBlockCall(mContacts.get(position));
             }
         });
