@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.adapters;
+package com.example.phuong.blockcallapp.ui.contact;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,23 +10,23 @@ import android.widget.TextView;
 
 import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.models.Contact;
-import com.example.phuong.blockcallapp.models.ContactBlock;
 
 import java.util.List;
 
 /**
- * Created by phuong on 03/02/2017.
+ * Copyright@ AsianTech.Inc
+ * Created by Phuong Pham T. on 30/06/2017.
  */
-
 public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.MyHolder> {
-
     public static final String REQUEST_CALL_PHONE = "request_call_phone";
     private List<Contact> mContacts;
     private Context mContext;
+    private itemClickHandle mListener;
 
-    public ListContactAdapter(List<Contact> mContacts, Context mContext) {
+    public ListContactAdapter(List<Contact> mContacts, Context mContext,itemClickHandle listener) {
         this.mContacts = mContacts;
         this.mContext = mContext;
+        mListener = listener;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyHolder holder, int position) {
+    public void onBindViewHolder(MyHolder holder, final int position) {
         final Contact contact = mContacts.get(position);
         holder.mTvNameContact.setText(contact.getName());
         holder.mTvPhoneContact.setText(contact.getPhoneNumber());
@@ -44,8 +44,8 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
         holder.mImgBlockCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ContactBlock contactBlock = new ContactBlock(contact.getName(), contact.getPhoneNumber(), false);
-                contactBlock.save();
+                //show dialog
+                mListener.clickBlockCall(mContacts.get(position));
             }
         });
     }
@@ -53,6 +53,11 @@ public class ListContactAdapter extends RecyclerView.Adapter<ListContactAdapter.
     @Override
     public int getItemCount() {
         return mContacts == null ? 0 : mContacts.size();
+    }
+
+    public interface itemClickHandle{
+        void clickBlockCall(Contact contact);
+        void clickBlockMessage(Contact contact);
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {

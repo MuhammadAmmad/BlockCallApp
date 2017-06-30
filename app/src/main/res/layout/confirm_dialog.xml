@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/bg_title_dialog"
+        android:gravity="center"
+        android:text="Xác nhận"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialog_standard_tv_message_margin"
+        android:layout_marginTop="@dimen/dialog_standard_tv_message_margin"
+
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/dialog_standard_tv_message_spacing"
+        android:padding="@dimen/left_right_padding"
+        android:text="@string/dialog_confirm_tv_message_confirm_delete"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/dialog_standard_tv_content_text_size" />
+
+    <View style="@style/ViewLineMain" />
+
+    <include layout="@layout/layout_container_btn_dialog" />
+</LinearLayout>

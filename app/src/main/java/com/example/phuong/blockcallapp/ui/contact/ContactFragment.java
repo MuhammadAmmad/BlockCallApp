@@ -11,15 +11,18 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.phuong.blockcallapp.R;
-import com.example.phuong.blockcallapp.adapters.ListContactAdapter;
 import com.example.phuong.blockcallapp.models.Contact;
+import com.example.phuong.blockcallapp.models.ContactBlock;
 import com.example.phuong.blockcallapp.ui.BaseFragment;
+import com.example.phuong.blockcallapp.ui.dialog.DialogComfirm;
+import com.example.phuong.blockcallapp.ui.dialog.DialogComfirm_;
 import com.example.phuong.blockcallapp.ui.welcome.MainActivity;
 import com.example.phuong.blockcallapp.utils.Constant;
 
@@ -34,7 +37,7 @@ import java.util.List;
  * Created by phuong on 03/02/2017.
  */
 @EFragment(R.layout.fragment_contact)
-public class ContactFragment extends BaseFragment {
+public class ContactFragment extends BaseFragment implements ListContactAdapter.itemClickHandle {
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 100;
 
     @ViewById(R.id.recyclerViewContact)
@@ -66,7 +69,7 @@ public class ContactFragment extends BaseFragment {
 
         mContacts = ((MainActivity) getActivity()).getListContact();
         mRecyclerViewContact.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ListContactAdapter(mContacts, getActivity());
+        mAdapter = new ListContactAdapter(mContacts, getActivity(), this);
         mRecyclerViewContact.setAdapter(mAdapter);
         mProgressBar.setVisibility(View.GONE);
 
@@ -86,7 +89,7 @@ public class ContactFragment extends BaseFragment {
                 }
             }
         }
-        mAdapter = new ListContactAdapter(filteredList, getActivity());
+        mAdapter = new ListContactAdapter(filteredList, getActivity(), this);
         mRecyclerViewContact.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
@@ -106,5 +109,24 @@ public class ContactFragment extends BaseFragment {
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+
+    @Override
+    public void clickBlockCall(Contact contact) {
+        DialogComfirm dialogComfirm = DialogComfirm_.builder().mTitle("Xác thực chặn gọi").mMessage("Bạn có chắc chắn muốn chặn số điện thoại này không ?").build();
+        dialogComfirm.show(getFragmentManager(), new DialogComfirm.OnItemClickListener() {
+            @Override
+            public void onConfirmClick() {
+                Log.d(getClass().getSimpleName(), "=======1");
+            }
+        });
+        ContactBlock contactBlock = new ContactBlock(contact.getName(), contact.getPhoneNumber(), false);
+        contactBlock.save();
+    }
+
+    @Override
+    public void clickBlockMessage(Contact contact) {
+
     }
 }
