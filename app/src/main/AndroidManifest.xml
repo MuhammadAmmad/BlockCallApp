@@ -6,10 +6,13 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
-    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE"
+    <uses-permission
+        android:name="android.permission.MODIFY_PHONE_STATE"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
 
     <application
         android:allowBackup="true"
@@ -39,9 +42,14 @@
         </activity>
         <activity android:name=".ui.welcome.MainActivity_" />
 
-        <receiver android:name=".receiver.PhoneCallReceiver" >
-            <intent-filter  android:priority="100" >
+        <receiver android:name=".ui.block_call.receiver.PhoneCallReceiver">
+            <intent-filter android:priority="100">
                 <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".ui.block_message.receiver.MessageIncomeReceiver">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
     </application>

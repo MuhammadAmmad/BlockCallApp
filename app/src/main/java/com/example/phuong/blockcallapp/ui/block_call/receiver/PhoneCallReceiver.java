@@ -1,13 +1,10 @@
-package com.example.phuong.blockcallapp.receiver;
+package com.example.phuong.blockcallapp.ui.block_call.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.Log;
-
-import com.example.phuong.blockcallapp.listener.PhoneCallStateListener;
 
 /**
  * Created by phuong on 05/02/2017.

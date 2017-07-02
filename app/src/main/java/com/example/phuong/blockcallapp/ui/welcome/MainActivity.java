@@ -4,7 +4,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import com.example.phuong.blockcallapp.R;
-import com.example.phuong.blockcallapp.adapters.TabAdapter;
 import com.example.phuong.blockcallapp.models.Contact;
 import com.example.phuong.blockcallapp.ui.BaseActivity;
 import com.example.phuong.blockcallapp.ui.block_call.ContactBlockFragment_;
@@ -35,7 +34,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+        MenuMainAdapter adapter = new MenuMainAdapter(getSupportFragmentManager());
         String[] title = getResources().getStringArray(R.array.title_tab_layout);
         adapter.addFragment(ContactFragment_.builder().build(), title[0]);
         adapter.addFragment(ContactBlockFragment_.builder().build(), title[1]);

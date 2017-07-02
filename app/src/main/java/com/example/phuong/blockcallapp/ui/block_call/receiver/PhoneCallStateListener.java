@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.listener;
+package com.example.phuong.blockcallapp.ui.block_call.receiver;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.internal.telephony.ITelephony;
+import com.example.phuong.blockcallapp.R;
 import com.example.phuong.blockcallapp.models.ContactBlock;
 
 import java.lang.reflect.Method;
@@ -47,7 +48,6 @@ public class PhoneCallStateListener extends PhoneStateListener {
         switch (state) {
 
             case TelephonyManager.CALL_STATE_RINGING:
-
                 mPhoneBlocks = ContactBlock.listAll(ContactBlock.class);
                 AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
                 //Turn ON the mute
@@ -55,12 +55,12 @@ public class PhoneCallStateListener extends PhoneStateListener {
                 TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
                 try {
                     Class clazz = Class.forName(telephonyManager.getClass().getName());
-                    Method method = clazz.getDeclaredMethod("getITelephony");
+                    Method method = clazz.getDeclaredMethod(context.getString(R.string.text_itele_phone));
                     method.setAccessible(true);
                     ITelephony telephonyService = (ITelephony) method.invoke(telephonyManager);
                     for (ContactBlock phoneBlock : mPhoneBlocks) {
-                        if (phoneBlock.getNumberPhone().contains("+84")) {
-                            phoneBlock.setNumberPhone(phoneBlock.getNumberPhone().replace("+84", "0"));
+                        if (phoneBlock.getNumberPhone().contains(context.getString(R.string.text_84))) {
+                            phoneBlock.setNumberPhone(phoneBlock.getNumberPhone().replace(context.getString(R.string.text_84), context.getString(R.string.text_0)));
                         }
                         if (incomingNumber.equalsIgnoreCase(phoneBlock.getNumberPhone())) {
                             telephonyService = (ITelephony) method.invoke(telephonyManager);

@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.EditText;
 
 import com.example.phuong.blockcallapp.R;
-import com.example.phuong.blockcallapp.adapters.ListContactBlockAdapter;
 import com.example.phuong.blockcallapp.models.ContactBlock;
 import com.example.phuong.blockcallapp.ui.BaseFragment;
 import com.example.phuong.blockcallapp.utils.Constant;

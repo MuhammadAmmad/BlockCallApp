@@ -1,4 +1,4 @@
-package com.example.phuong.blockcallapp.adapters;
+package com.example.phuong.blockcallapp.ui.welcome;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +11,11 @@ import java.util.List;
  * Created by phuong on 03/02/2017.
  */
 
-public class TabAdapter extends FragmentStatePagerAdapter {
+public class MenuMainAdapter extends FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
-    public TabAdapter(FragmentManager fm) {
+    public MenuMainAdapter(FragmentManager fm) {
         super(fm);
     }
 

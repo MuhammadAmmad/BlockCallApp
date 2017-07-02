@@ -9,6 +9,11 @@
     <string name="msg_success">Bạn đã chặn cuộc gọi thành công</string>
     <string name="title_dialog_block_call">Xác thực chặn gọi</string>
     <string name="msg_dialog_block_call">Bạn có chắc chắn muốn chặn số điện thoại này không ?</string>
+    <string name="provider_msg">android.provider.Telephony.SMS_RECEIVED</string>
+    <string name="text_pdus">pdus</string>
+    <string name="text_84">+84</string>
+    <string name="text_0">0</string>
+    <string name="text_itele_phone">getITelephony</string>
     <array name="title_tab_layout">
         <item>Contact</item>
         <item>Block</item>
